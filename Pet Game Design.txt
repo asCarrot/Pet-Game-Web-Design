@@ -1,0 +1,192 @@
+﻿Pet Game
+
+
+Summary
+This animal caring game allows the player to select and raise their own pets by petting, playing, feeding, and washing them! The objective is to love and care for their pets by reaching maximum affection. They start off by choosing one dog, but after reaching maximum affection, are allowed to select others.
+
+
+
+
+Project Choice: Web game design
+Game Title: “Pet Playtime!” (idk this sounds goofy)
+
+
+Purpose of the Game
+GOAL: To max out the pet’s affection meter by learning how to take care of the pet.
+This game is intended to provide a fun and cozy experience while still being engaging and interesting. Geared towards kids, this game encourages young people to learn about animals and keep track of their needs within a simplified game, ultimately aiming to gently educate them about how to properly care for their pets.
+
+
+TARGET AUDIENCE
+* Ages: All, but geared towards young people
+* Gender: Any
+* Interests: Collectors, completionists, cute animal games, taking care of animals, simple and comforting games
+
+
+Design: Fundamental Elements
+1. Starting screen
+   1. Selector: At the start of the game, the player will need to select one of three dog breeds (preferably dog breeds that are known to be easy to take care of, like a golden retriever and such). This will determine the appearance of this dog. The player cannot switch or reselect dogs again until they max out the affection level.
+   2. Name: The player has to type in a name for their dog.
+      1. Censorship: Basic stuff that blocks inappropriate comments. Since this is a game primarily targeted towards a young audience, this censorship should be a little bit stricter than usual.
+2. Affection meter
+   1. The most important meter. All the care actions below are the main ways the player can raise their affection with their pet.
+      1. Affection level: The visible level that the pet is currently at. The player’s pet will always start at level 0. The max is 10. The higher the level, the higher amount of affection points the player will need to earn in order to level up.
+         1. (For clarification: from level 9 -> level 10, the player only needs to fill level 9’s affection meter; once the player does so, the pet is considered to be maxed out, which can be shown through a boolean.)
+3. Care features (petting, feeding, bathing)
+   1. These features all require the player to perform and complete specific actions (as stated). Once completed, the pet will gain 50 base points into its affection meter.
+
+
+Design: Extra Fun/Better Elements
+(These are not required by anyone, but I do like them a lot and think that they make this game special!)
+1. Minigames + currency system
+
+
+Design: Aesthetics
+Theme: Cutesy, Simple (simple, large, colorful buttons for the most important features; the visual layout is easy to navigate, especially since it is aimed for kids’ learning)
+Imagery + Iconography: Cute artstyle (not detailed, and should not have too many lines)
+Color Palette: Any pastel colors as a background, with brighter/saturated colors for the more important areas of the screen.
+Typography
+* The font style is simple + bubbly
+* Although the methods and variables can be as complexly-named as needed, the text on the screen should contain simple words that are commonly known/can be easily understood by kids
+
+
+Technical Specifications
+1. Overview
+Game Title: Pet Playtime!
+Genre: Casual Animal Care / Simulation
+Platform: Web (Browser-based)
+Target Audience:
+* Age: 4-12 years (though suitable for all ages)
+* Interests: Cute animals, pet care, collection, and completion-based games.
+Game Purpose:
+* Teach children how to care for a pet by completing tasks to raise the pet’s affection meter.
+* Foster a sense of responsibility, empathy, and fun while maintaining a relaxing, educational environment.
+________________
+
+
+2. Core Game Features
+2.1. Core Gameplay Loop
+   1. Select and Name Pet
+   * Player selects one of 3 pre-designed dog breeds (e.g., Golden Retriever, Beagle, Cocker Spaniel)
+   * Input a custom name for their dog.
+   * The player cannot change the breed after the initial choice. The name can be changed anytime via a settings menu.
+   2. Pet Care Actions
+   * Petting: Players interact with the pet by clicking or tapping on the dog, causing the dog to respond positively, increasing affection.
+   * Feeding: Players feed the pet using a variety of food options, contributing affection.
+   * Bathing: Players need to wash the dog, requiring multiple simple interactive steps, e.g., clicking on the soap and water to simulate washing.
+   3. Affection Meter Progression
+   * The main goal is to raise the pet’s affection level from 0 to 10 by completing care actions.
+   * Each completed action (petting, feeding, bathing) contributes 50 affection points.
+   * The affection meter requires progressively more affection points to level up as it reaches higher levels (e.g., level 1 requires 50 points, level 2 requires 100 points, etc.).
+   * Once the pet reaches level 10, it is considered “maxed out,” unlocking the option to select new pets.
+   4. Unlock New Pets
+   * After maxing out the first pet’s affection level, the player unlocks the ability to select new pets.
+   * These pets could be new dog breeds or even other types of animals (e.g., cats, bunnies) as the player continues progressing.
+2.2. Secondary Gameplay Features
+   1. Minigames & Currency System
+   * Minigames (Optional, for bonus affection points or currency):
+   * Fetch: A simple game where the player throws a ball, and the dog fetches it.
+   * Trick Training: Teach the dog simple tricks like sit, roll over, etc.
+   * Chase: A running game where the dog follows a moving object or target.
+   * Currency (optional):
+   * Players can earn coins through minigames or caring for their pet.
+   * Coins can be used for buying cosmetic items or pet accessories (e.g., new collars, toys, etc.).
+   2. In-game Shop (optional):
+   * Players can spend earned currency on cosmetics and accessories for their pet or their virtual environment.
+________________
+
+
+3. Design & Aesthetic Specifications
+3.1. Visual Style
+   * Art Style:
+Simple, soft, and cute. No intricate lines or hyper-realistic features. Characters and pets should have minimal, round shapes with exaggerated, friendly expressions.
+Soft pastel backgrounds and bright, engaging colors for action buttons.
+   * UI Design:
+      * Large, colorful, and easily tappable buttons for essential actions (petting, feeding, bathing).
+      * The affection meter should be prominently displayed, perhaps above or next to the pet.
+      * Animations for interaction feedback (e.g., heart animations when affection is gained, sparkles for success).
+      * Large, clear icons for simple navigation and gameplay options.
+      * Simple, intuitive controls – primarily click-based (with large target areas), optimized for touchscreen devices as well.
+3.2. Color Palette
+      * Background Colors:
+Soft pastel tones for calmness and a relaxing feel (e.g., light pinks, blues, yellows, and lavender).
+      * UI Elements:
+Brighter, more saturated colors for buttons and actions, such as:
+         * Pet Interaction Buttons: Bright orange, turquoise, or lime green for clear visibility.
+         * Affection Meter: Pink or purple gradient for clarity.
+3.3. Typography
+         * Font Style:
+Rounded, soft, and bubbly fonts to match the playful tone of the game. Fonts like "Quicksand," "Baloo," or "Fredoka One" work well.
+            * Simple and legible, designed for ease of reading by children.
+            * No complex jargon – the text should use common words.
+            * In-Game Text:
+            * All instructions and interactions should use short, simple sentences that kids can easily understand.
+            * All text should be in lowercase or title case for clarity and consistency.
+________________
+
+
+4. Technical Requirements
+4.1. Game Engine & Platform
+            * Game Engine:
+            * A lightweight engine for web deployment, such as Phaser.js or Construct 3, to ensure compatibility across browsers.
+            * HTML5-based game, optimized for both desktop and mobile browsers.
+            * Responsive Design:
+            * Fully responsive, ensuring the game works across devices (desktop, tablet, mobile) without performance issues.
+            * Mobile-first approach for simplicity and accessibility.
+4.2. Audio & Sound
+            * Background Music:
+            * Soft, playful, and calming music loops with a focus on light piano, marimba, or acoustic instruments.
+            * Sound Effects:
+            * Cheerful sounds for interaction (e.g., petting, feeding, etc.), like little barks or giggles.
+            * Sound effects for success/failure in minigames or actions.
+4.3. Data & Save System
+            * Save Data:
+            * The game should save the player’s pet(s) and their affection levels locally in the browser (using localStorage).
+            * Progress Tracking:
+            * Affection levels, unlocked pets, and minigame scores should be saved for continued play on return visits.
+4.4. Accessibility
+            * Text-to-Speech (TTS):
+            * Optionally, text-to-speech could be enabled to help younger players who may have difficulty reading.
+            * Color Contrast:
+            * High contrast between UI elements and the background to ensure readability for color-blind players.
+            * Mouse vs. Touchscreen:
+            * Optimized for both mouse interaction and touchscreen gestures to make it accessible to all kinds of devices (desktop, tablet, mobile).
+________________
+
+
+5. Monetization (Optional)
+            * Ads:
+            * Non-intrusive ads, such as banner ads on the home screen or between minigames (with parental consent if needed).
+            * Alternatively, a premium version of the game could be offered, where players can access extra content, minigames, or pets.
+            * In-App Purchases:
+            * Cosmetic items (pet accessories, new toys, backgrounds) bought with currency earned in-game or purchased with real money.
+            * Subscription Model:
+            * "Pet Care Club" - A monthly subscription that gives players extra pets, minigames, or special cosmetic items each month.
+________________
+
+
+6. Censorship & Safety Features
+            * User-Generated Content Restrictions:
+            * A strict chat filter or no chat system at all, preventing inappropriate language.
+            * Safe interaction guidelines with predefined phrases (e.g., “I love you!” and “Good boy!”).
+            * Parental Controls:
+            * Option for parents to monitor and restrict in-app purchases, ads, or game time.
+________________
+
+
+7. Timeline & Development Phases
+            1. Prototype (2-3 months):
+            * Implement basic pet selection, affection mechanics, and simple interactions (petting, feeding, bathing).
+            2. Core Game Development (4-6 months):
+            * Add multiple pet breeds, affection level progression, UI design, and basic minigames.
+            3. Polishing & Testing (2-3 months):
+            * Focus on user experience, device optimization, accessibility features, and bug fixing.
+            4. Launch & Post-Launch (Ongoing):
+            * Collect feedback from users, fix bugs, and add new content (e.g., new pets, seasonal minigames)
+
+
+Inspiration/References
+Duck Life
+            * Very similar concept, has minigames to raise stats (although this game’s stats are different)
+Pokémon XY Bottom Screen Functions/Pokémon Refresh
+            * My main and favorite inspiration. There are different types of minigames, and Refresh is the biggest one. You can cook or earn food things (I forgot the name) to feed your pokemon
+Tamagotchi
