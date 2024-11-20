@@ -1,188 +1,131 @@
-# Wandering Ghost - Technical Specification
+# Pet Playtime! - Technical Specifications
 
-## 1. Technology Stack
+## 1. Overview
 
-To develop _Wandering Ghost_, we will use the following technology stack to support 2D graphics, animation, and gameplay mechanics:
+**Game Title:** Pet Playtime!  
+**Genre:** Casual Animal Care / Simulation  
+**Platform:** Web (Browser-based)  
+**Target Audience:**  
+- **Age:** 4-12 years (though suitable for all ages)  
+- **Interests:** Cute animals, pet care, collection, and completion-based games.  
 
-### Frontend
-- **JavaScript** - Main language for game logic.
-- **Phaser.js** - 2D game engine for animations, physics, and keyboard controls.
-- **HTML5 Canvas** - Rendering surface used by Phaser.
-
-### Backend
-- **Node.js** with **Express** - Backend for leaderboard management and data storage.
-- **SQLite** - Database to store leaderboard data for simplicity.
-
-### Additional Tools
-- **Webpack** - For module bundling and dependency management.
-- **REST API** - For managing player data and leaderboard functionality.
+**Game Purpose:**  
+- Teach children how to care for a pet by completing tasks to raise the pet’s affection meter.  
+- Foster responsibility, empathy, and fun while maintaining a relaxing, educational environment.  
 
 ---
 
-## 2. Architecture
+## 2. Core Game Features
 
-The game architecture is modular, with separate components for managing the game state, map handling, player character, collectibles, enemies, timer, and leaderboard.
+### 2.1. Core Gameplay Loop
 
-### Key Components
+#### Class: `Pet`
+- **Attributes:**
+  - `name`: String - The pet’s custom name (modifiable via settings).  
+  - `breed`: String - The chosen pet breed (immutable after selection).  
+  - `affection_level`: Integer - Current affection level (0-10).  
+  - `affection_points`: Integer - Points accumulated for leveling up.  
 
-1. **GameManager**: Manages game state, level progression, score, and the gameplay loop.
-2. **Map**: Handles room generation, entrances, exits, and secret rooms based on preset layouts.
-3. **GhostCharacter**: Represents the player’s ghost with movement and interaction capabilities.
-4. **Mob**: Represents enemy creatures with movement and collision detection.
-5. **Collectible**: Manages spirit flames and power-ups.
-6. **Timer**: Tracks the countdown for each level.
-7. **Leaderboard**: Handles high scores and player progression.
+- **Methods:**
+  - `interact(action: String)`: Executes a care action (`pet`, `feed`, or `bathe`) and updates affection points.  
+  - `level_up()`: Checks and updates the affection level when required points are met.  
 
----
+#### Class: `Game`
+- **Attributes:**
+  - `current_pet`: Pet - The active pet being cared for.  
+  - `pets_unlocked`: List[Pet] - All unlocked pets.  
 
-## 3. Data Model
+- **Methods:**
+  - `select_pet(breed: String, name: String)`: Creates and sets the active pet.  
+  - `unlock_new_pet(breed: String)`: Adds a new pet to `pets_unlocked` after maxing out affection.  
 
-### 3.1 Class: `GameManager`
+### 2.2. Secondary Gameplay Features
 
-**Responsibilities**: Controls the game state, manages level progression, and tracks player score.
+#### Class: `Minigame`
+- **Attributes:**
+  - `name`: String - The name of the minigame (e.g., "Fetch," "Trick Training").  
+  - `reward`: Integer - Affection points or currency earned.  
 
-- **Attributes**:
-  - `level: int` - The current level of the game.
-  - `score: int` - The player’s score.
-  - `isGameOver: boolean` - Indicates if the game is over.
-  - `ghost: GhostCharacter` - Instance of the player-controlled ghost.
-  - `mobs: List<Mob>` - List of mobs present in the level.
-  - `collectibles: List<Collectible>` - List of spirit flames and power-ups.
-  - `map: Map` - Instance of the `Map` class for room structure.
-  - `timer: Timer` - Timer instance that manages the countdown.
+- **Methods:**
+  - `start()`: Initiates the minigame and returns rewards upon success.  
 
-- **Methods**:
-  - `initializeGame()` - Sets up a new game with default score, level, and initializes game components.
-  - `startLevel()` - Loads a specific preset layout for the level, resets ghost, mobs, and places collectibles.
-  - `endLevel()` - Finalizes the level, increments `level`, and resets components for the next level.
-  - `updateScore(points: int)` - Adds the specified points to `score`.
-  - `checkGameOver(): boolean` - Checks if game-over conditions are met.
-  - `toggleGamePause()` - Pauses or unpauses the game.
-  - `tickGamePlay()` - Main gameplay loop, updating `ghost`, `mobs`, and `timer`.
+#### Class: `CurrencySystem`
+- **Attributes:**
+  - `coins`: Integer - Total currency earned.  
 
----
-
-### 3.2 Class: `Map`
-
-**Responsibilities**: Handles room layouts based on preset configurations, with defined entrances, exits, and secret rooms.
-
-- **Attributes**:
-  - `layout: Array<Array<Tile>>` - 2D array representing the room’s layout (walls, pathways, entrances).
-  - `entrance: Point` - Starting point for the ghost in the room.
-  - `exit: Point` - The location of the room exit.
-  - `secretRooms: List<Point>` - Coordinates of hidden entrances for secret rooms.
-
-- **Methods**:
-  - `loadPresetLayout(level: int)` - Loads a preset map layout for the given level from predefined layouts.
-  - `checkCollision(position: Point): boolean` - Checks if the specified position collides with a wall.
+- **Methods:**
+  - `earn(amount: Integer)`: Adds coins based on actions or minigame performance.  
+  - `spend(amount: Integer)`: Deducts coins when purchasing items.  
 
 ---
 
-### 3.3 Class: `GhostCharacter`
+## 3. Design & Aesthetic Specifications
 
-**Responsibilities**: Manages ghost movement, field of view, and interaction with collectibles.
+### 3.1. Visual Style
+- **Art Style:**  
+  - Simple, soft, and cute. Minimalistic designs with exaggerated, friendly expressions.  
+  - Soft pastel tones for backgrounds with bright, engaging button colors.  
 
-- **Attributes**:
-  - `position: Point` - Current position of the ghost within the room.
-  - `fovRadius: int` - Radius of the ghost’s field of view.
-  - `collisionRadius: int` - Radius for collision detection with mobs or collectibles.
-  - `speed: int` - Movement speed of the ghost.
+- **UI Design:**  
+  - Large, tappable buttons for key actions.  
+  - Prominent affection meter with animations for positive feedback.  
 
-- **Methods**:
-  - `move(direction: String)` - Moves the ghost in the specified direction (e.g., "up", "down").
-  - `checkInteraction(): void` - Checks if the ghost is near a collectible or mob.
-  - `renderFOV()` - Displays the ghost’s field of view visually on the map.
+### 3.2. Color Palette
+- **Background Colors:** Soft pastel tones (light pinks, blues, yellows, lavender).  
+- **UI Elements:** Bright colors like orange, turquoise, or lime green for buttons.  
 
----
-
-### 3.4 Class: `Mob`
-
-**Responsibilities**: Represents an enemy creature with movement and collision detection.
-
-- **Attributes**:
-  - `position: Point` - Current position of the mob within the room.
-  - `speed: int` - Movement speed of the mob.
-  - `behaviorType: String` - AI type (e.g., "patrol", "chase").
-
-- **Methods**:
-  - `move(): void` - Updates the mob’s position based on its behavior.
-  - `checkCollision(position: Point): boolean` - Determines if a collision occurs with the ghost.
+### 3.3. Typography
+- Rounded, playful fonts like "Quicksand" or "Fredoka One."  
+- Clear, child-friendly text with simple sentences and instructions.  
 
 ---
 
-### 3.5 Class: `Collectible`
+## 4. Technical Requirements
 
-**Responsibilities**: Represents spirit flames and power-ups.
+### 4.1. Game Engine & Platform
+- **Game Engine:** Phaser.js or Construct 3 for web-based deployment.  
+- **Responsive Design:** Optimized for desktop, tablet, and mobile browsers.
 
-- **Attributes**:
-  - `position: Point` - Location of the collectible on the map.
-  - `type: String` - Type of collectible (e.g., "spiritFlame", "powerUp").
-  - `value: int` - Affection points or score value granted by the collectible.
+### 4.2. Audio & Sound
+- **Background Music:** Calming music loops with piano or marimba.  
+- **Sound Effects:** Cheerful interaction sounds (e.g., barks, success jingles).  
 
-- **Methods**:
-  - `activate(): void` - Grants the player the collectible’s effect and removes it from the map.
-
----
-
-### 3.6 Class: `Timer`
-
-**Responsibilities**: Tracks the countdown for each level.
-
-- **Attributes**:
-  - `timeRemaining: int` - Time left in the current level (in seconds).
-
-- **Methods**:
-  - `startTimer(levelTime: int): void` - Initializes the timer with the specified level time.
-  - `tick(): void` - Decrements the timer by one second.
-  - `checkTimeUp(): boolean` - Returns `true` if the time runs out.
+### 4.3. Data & Save System
+- **Save Data:** Uses `localStorage` to save pet information, affection levels, and progress.  
+- **Progress Tracking:** Tracks affection levels, unlocked pets, and minigame scores.  
 
 ---
 
-### 3.7 Class: `Leaderboard`
+## 5. Monetization (Optional)
 
-**Responsibilities**: Handles high scores and player progression.
+### Class: `Shop`
+- **Attributes:**
+  - `items`: List[Item] - Available accessories or cosmetics.  
+  - `prices`: Dictionary - Maps items to their coin costs.  
 
-- **Attributes**:
-  - `entries: List<LeaderboardEntry>` - List of players and their scores.
-
-- **Methods**:
-  - `addEntry(playerName: String, score: int): void` - Adds a new score entry to the leaderboard.
-  - `getTopScores(limit: int): List<LeaderboardEntry>` - Retrieves the top scores up to the specified limit.
-
----
-
-## 4. Features
-
-### 4.1 Core Features
-- Ghost character navigation.
-- Room exploration with procedurally designed layouts.
-- Spirit flame collection and mob avoidance.
-- Countdown timer for added challenge.
-
-### 4.2 Additional Features
-- Leaderboard tracking for high scores.
-- Secret rooms with bonus collectibles.
-- Unlockable levels with unique layouts.
+- **Methods:**
+  - `purchase(item: Item)`: Deducts coins and adds the item to the player’s inventory.  
+  - `display_inventory()`: Shows the player’s purchased items.  
 
 ---
 
-## 5. Timeline
+## 6. Timeline & Development Phases
 
-### Phase 1: Prototype (2 months)
-- Develop basic mechanics for ghost movement and collectible interaction.
+1. **Prototype (2-3 months):**
+   - Implement basic pet selection, affection mechanics, and simple interactions.  
 
-### Phase 2: Core Development (4 months)
-- Implement mobs, room layouts, and the countdown timer.
+2. **Core Development (4-6 months):**
+   - Add multiple pet breeds, affection level progression, and basic minigames.  
 
-### Phase 3: Polishing (2 months)
-- Optimize UI, add animations, and bug fixes.
+3. **Polishing & Testing (2-3 months):**
+   - Focus on user experience, optimization, and accessibility features.  
 
-### Phase 4: Launch & Updates (Ongoing)
-- Release new features, levels, and gather user feedback.
+4. **Launch & Post-Launch (Ongoing):**
+   - User feedback integration, bug fixes, and content updates.  
 
 ---
 
-## 6. Inspiration
-- **Duck Life**: Minigames and progression mechanics.
-- **Pokémon XY Bottom Screen**: Engaging character interactions.
-- **Tamagotchi**: Care-based mechanics and simplicity.
+## 7. Inspiration/References
+- **Duck Life:** Minigames to raise stats (adapted to affection mechanics).  
+- **Pokémon XY Refresh:** Similar interactive pet-care functions.  
+- **Tamagotchi:** Core gameplay inspired by pet-raising mechanics.  
